@@ -1,0 +1,20 @@
+name: maml
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python>=3
+  - pip
+  - numpy
+  - pandas
+  - pyyaml
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - conda-forge::hyperopt
+  - conda-forge::lightgbm
+  - conda-forge::mlflow
+  - conda-forge::python-dotenv
+  - conda-forge::shap
+  - pip:
+      - myautoml
