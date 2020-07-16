@@ -1,18 +1,15 @@
-name: myautoml
+name: {{cookiecutter.env_name}}
 channels:
   - defaults
-  - conda-forge
 dependencies:
-  - python>=3
+  - python>=3.8
   - numpy
   - pandas
   - pyyaml
   - scikit-learn
   - matplotlib
   - seaborn
-
   - conda-forge::hyperopt
-  - conda-forge::lightgbm
   - conda-forge::mlflow
   - conda-forge::python-box
   - conda-forge::python-dotenv
@@ -21,4 +18,4 @@ dependencies:
   - pip
   - pip:
       - envyaml
-      - myautoml
+      - cloudpickle

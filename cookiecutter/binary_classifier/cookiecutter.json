@@ -1,0 +1,10 @@
+{
+  "project_name": "Project Name",
+  "repo_name": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
+  "env_name": "{{ cookiecutter.repo_name }}",
+  "author_name": "Your name (or your organization/company/team)",
+  "description": "A short description of the project.",
+
+  "experiment_name": "{{ cookiecutter.project_name }}",
+  "model_name": "{{ cookiecutter.repo_name }}"
+}

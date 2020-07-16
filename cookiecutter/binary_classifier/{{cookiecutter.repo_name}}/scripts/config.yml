@@ -1,0 +1,18 @@
+experiment:
+  name: {{ cookiecutter.experiment_name }}
+
+model:
+  name: {{ cookiecutter.model_name }}
+
+training:
+  max_evals: 2
+
+evaluation:
+  primary_metric: roc_auc_cv
+  metrics:
+    - roc_auc
+    - accuracy
+  shap_analysis: True
+
+prediction:
+  stage: Production
