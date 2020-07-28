@@ -51,6 +51,7 @@ setup(
         'numpy',
         'pandas',
         'pyyaml',
+        'requests',
         'scikit-learn',
     ],
     include_package_data=True,
