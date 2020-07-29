@@ -20,7 +20,7 @@ def evaluate_binary_classifier(model, data, temp_dir, plots='all'):
         y_pred_proba = data[label]['y_pred_proba'] = model.predict_proba(x)[:, 1]
 
         metrics[f"roc_auc_{label}"] = roc_auc_score(y_true, y_pred_proba)
-        metrics[f"pr_auc_{label}"] = average_precision_score(y_true, y_pred_proba)
+        metrics[f"average_precision_{label}"] = average_precision_score(y_true, y_pred_proba)
         metrics[f"accuracy_{label}"] = accuracy_score(y_true, y_pred)
         metrics[f"f1_{label}"] = f1_score(y_true, y_pred)
         metrics[f"precision_{label}"] = precision_score(y_true, y_pred)
