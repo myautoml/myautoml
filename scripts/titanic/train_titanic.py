@@ -7,6 +7,8 @@ from hyperopt import fmin, tpe, Trials, STATUS_OK
 import mlflow
 import numpy as np
 
+from myautoml.evaluation.binary_classifier import evaluate_binary_classifier
+from myautoml.evaluation.shap import shap_analyse
 from myautoml.utils import load_config
 from myautoml.utils.hyperopt import flatten_params, prep_params
 from myautoml.utils.mlflow import log_sk_model
@@ -14,9 +16,6 @@ from myautoml.utils.model import make_pipeline
 
 from data import load_training_data, split_data
 from model import get_preprocessor, get_estimator, get_params
-
-from myautoml.evaluation.binary_classifier import evaluate_binary_classifier
-from myautoml.evaluation.shap import shap_analyse
 
 _logger = logging.getLogger(__file__)
 

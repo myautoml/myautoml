@@ -46,9 +46,3 @@ def get_params():
         'max_depth': hp.quniform('max_depth', 3, 6, 1)
     }
     return estimator_params, search_space
-
-
-def make_pipeline(preprocessor, estimator):
-    _logger.debug("Defining the model as a pipeline")
-    return Pipeline(steps=[('preprocessor', preprocessor),
-                           ('estimator', estimator)])
