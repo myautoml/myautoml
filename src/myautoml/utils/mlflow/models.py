@@ -36,7 +36,7 @@ def get_registered_model(model_name: str,
     if model_path is None:
         raise ValueError("Path of model in artifact store not found")
 
-    return get_model(rm.run_id, str(model_path))
+    return get_model(rm.run_id, str(model_path)), rm.version
 
 
 def register_model(run_id: str,
