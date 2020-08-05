@@ -19,6 +19,7 @@ def prep_params(params):
     _logger.log(level=logging.NOTSET, msg="Ensuring integer parameters to be integers")
     # Numeric values loaded from a configuration.yaml file tend to have dtype float.
     for p in params.keys():
-        if params[p] == int(params[p]):
-            params[p] = int(params[p])
+        if isinstance(params[p], float):
+            if params[p] == int(params[p]):
+                params[p] = int(params[p])
     return params
