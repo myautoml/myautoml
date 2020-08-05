@@ -29,5 +29,5 @@ For now, have a look at the example `scripts`.
 
 To use the Cookiecutter templates:
 ```shell script
-cookiecutter https://github.com/erikjandevries/myautoml.git --directory="cookiecutter/binary_classifier"
+cookiecutter https://github.com/myautoml/myautoml.git --directory="cookiecutter/binary_classifier"
 ```
