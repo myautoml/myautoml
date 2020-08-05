@@ -25,7 +25,7 @@ def main():
     x, y_true = load_prediction_data()
 
     _logger.info("Loading the model")
-    model = get_registered_model(config.model.name, config.prediction.stage)
+    model, model_version = get_registered_model(config.model.name, config.prediction.stage)
 
     _logger.info("Making predictions")
     y_pred = model.predict(x)
