@@ -32,5 +32,5 @@ and modify the settings conform your environment.
     └── src                 <- Source code for use in this project
 
 <p><small>Project based on the MyAutoML Cookiecutter template for
-<a target="_blank" href="https://github.com/erikjandevries/myautoml/tree/master/cookiecutter/binary_classifier">
+<a target="_blank" href="https://github.com/myautoml/myautoml/tree/master/cookiecutter/binary_classifier">
 binary classifiers</a>.</small></p>
