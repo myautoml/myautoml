@@ -27,10 +27,13 @@ def shap_analyse(model, x, temp_dir):
 
     shap_summary_path = save_shap_summary(temp_dir, shap_values, shap_data, shap_feature_names)
     shap_summary_bar_path = save_shap_summary_bar(temp_dir, shap_values, shap_data, shap_feature_names)
-    shap_dependence_paths = save_shap_dependence_plots(temp_dir, shap_values, shap_data, shap_feature_names, x,
-                                                       model.steps[0][1])
 
-    paths = [shap_summary_path, shap_summary_bar_path, *shap_dependence_paths]
+    # TODO: Check what happens with dependence plots. Doesn't work as intended.
+    # shap_dependence_paths = save_shap_dependence_plots(temp_dir, shap_values, shap_data, shap_feature_names, x,
+    #                                                    model.steps[0][1])
+
+    paths = [shap_summary_path, shap_summary_bar_path]
+    # paths = [shap_summary_path, shap_summary_bar_path, *shap_dependence_paths]
     artifacts = {path: 'shap' for path in paths}
 
     return tags, artifacts
