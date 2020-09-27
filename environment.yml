@@ -1,24 +1,8 @@
 name: myautoml
 channels:
-  - defaults
-  - conda-forge
+#    - use default channels
 dependencies:
-  - python>=3
-  - numpy
-  - pandas
-  - pyyaml
-  - scikit-learn
-  - matplotlib
-  - seaborn
-
-  - conda-forge::hyperopt
-  - conda-forge::lightgbm
-  - conda-forge::mlflow
-  - conda-forge::python-box
-  - conda-forge::python-dotenv
-  - conda-forge::shap
-
+  - python
   - pip
   - pip:
-      - envyaml
-      - myautoml
+      - -r file:requirements/base.txt

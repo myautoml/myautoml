@@ -1,0 +1,16 @@
+wheel
+
+numpy
+pandas
+scikit-learn
+matplotlib
+seaborn
+
+mlflow
+hyperopt
+shap
+
+python-box
+python-dotenv
+pyyaml
+envyaml

@@ -1,0 +1,16 @@
+# Start with the base packages
+-r base.in
+
+# Pytest will be run as part of the Azure DevOps pipeline
+# Make sure to place your tests in the ./tests/ folder.
+pytest
+pytest-azurepipelines
+
+# During the testing stage the following packages are needed to generate the coverage reports.
+pytest-cov
+coverage
+
+# A linter is a static code analysis tool used to flag programming
+# errors, bugs, stylistic errors, and suspicious constructs.
+pylint
+flake8
