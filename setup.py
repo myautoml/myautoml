@@ -53,6 +53,10 @@ setup(
         'pyyaml',
         'requests',
         'scikit-learn',
+
+        'python-box',
+        'python-dotenv',
+        'envyaml',
     ],
     include_package_data=True,
 

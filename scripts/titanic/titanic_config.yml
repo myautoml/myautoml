@@ -1,5 +1,5 @@
 experiment:
-  name: Titanic
+  name: MyAutoML/Titanic
 
 model:
   name: titanic

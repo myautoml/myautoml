@@ -31,4 +31,4 @@ def registermodel(experiment_name, model_path, model_name):
         click.echo(f"Registered model URL: {registered_model_url}")
 
     else:
-        click.secho(f"Model specified to upload!", fg="red", bold=True)
+        click.secho(f"No model specified to upload!", fg="red", bold=True)

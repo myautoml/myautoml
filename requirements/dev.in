@@ -1,0 +1,7 @@
+# Start with the base packages
+-r test.in
+-r docs.in
+
+pip-compile-multi
+twine
+wheel
