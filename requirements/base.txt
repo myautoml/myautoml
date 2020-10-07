@@ -6,7 +6,7 @@
 #    pip-compile-multi
 #
 alembic==1.4.1            # via mlflow
-azure-core==1.8.1         # via azure-storage-blob
+azure-core==1.8.2         # via azure-storage-blob
 azure-storage-blob==12.5.0  # via mlflow
 certifi==2020.6.20        # via matplotlib, msrest, requests
 cffi==1.14.3              # via cryptography
@@ -23,15 +23,15 @@ envyaml==0.2060           # via -r requirements/base.in
 flask==1.1.2              # via mlflow, prometheus-flask-exporter
 future==0.18.2            # via hyperopt
 gitdb==4.0.5              # via gitpython
-gitpython==3.1.8          # via mlflow
+gitpython==3.1.9          # via mlflow
 gorilla==0.3.0            # via mlflow
 gunicorn==20.0.4          # via mlflow
-hyperopt==0.2.4           # via -r requirements/base.in
+hyperopt==0.2.5           # via -r requirements/base.in
 idna==2.10                # via requests
 isodate==0.6.0            # via msrest
 itsdangerous==1.1.0       # via flask
 jinja2==2.11.2            # via flask
-joblib==0.16.0            # via scikit-learn
+joblib==0.17.0            # via scikit-learn
 kiwisolver==1.2.0         # via matplotlib
 llvmlite==0.34.0          # via numba
 mako==1.1.3               # via alembic
@@ -43,7 +43,7 @@ networkx==2.5             # via hyperopt
 numba==0.51.2             # via shap
 numpy==1.19.2             # via -r requirements/base.in, hyperopt, matplotlib, mlflow, numba, pandas, scikit-learn, scipy, seaborn, shap
 oauthlib==3.1.0           # via requests-oauthlib
-pandas==1.1.2             # via -r requirements/base.in, mlflow, seaborn, shap
+pandas==1.1.3             # via -r requirements/base.in, mlflow, seaborn, shap
 pillow==7.2.0             # via matplotlib
 prometheus-client==0.8.0  # via prometheus-flask-exporter
 prometheus-flask-exporter==0.18.0  # via mlflow
@@ -67,11 +67,11 @@ six==1.15.0               # via azure-core, cryptography, cycler, databricks-cli
 slicer==0.0.4             # via shap
 smmap==3.0.4              # via gitdb
 sqlalchemy==1.3.13        # via alembic, mlflow
-sqlparse==0.3.1           # via mlflow
+sqlparse==0.4.0           # via mlflow
 tabulate==0.8.7           # via databricks-cli
 tenacity==6.2.0           # via databricks-cli
 threadpoolctl==2.1.0      # via scikit-learn
-tqdm==4.49.0              # via hyperopt, shap
+tqdm==4.50.1              # via hyperopt, shap
 urllib3==1.25.10          # via requests
 websocket-client==0.57.0  # via docker
 werkzeug==1.0.1           # via flask
