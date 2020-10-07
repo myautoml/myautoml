@@ -7,7 +7,8 @@ MyAutoML documentation
 
 **Useful links**:
 `Binary Installers <https://pypi.org/project/myautoml>`__ |
-`Source Repository <https://github.com/myautoml/myautoml>`__
+`Source Repository <https://github.com/myautoml/myautoml>`__ |
+`Download the docs <https://readthedocs.org/projects/myautoml/downloads/>`__
 
 :mod:`myautoml` is an open source library providing tools to automate machine learning processes.
 
