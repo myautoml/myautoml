@@ -9,7 +9,6 @@ __uri__ = "https://github.com/myautoml/myautoml"
 __version__ = "0.2.2"
 
 __author__ = "Erik Jan de Vries"
-__email__ = "erikjandevries@users.noreply.github.com"
 
 __license__ = ""
 __copyright__ = "Copyright 2015-2020 {}".format(__author__)

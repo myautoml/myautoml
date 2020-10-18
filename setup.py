@@ -36,9 +36,14 @@ setup(
     url=about["__uri__"],
 
     author=about["__author__"],
-    author_email=about["__email__"],
+
+    project_urls={
+        'Documentation': 'https://myautoml.readthedocs.io',
+        "Source Code": "https://github.com/myautoml/myautoml",
+    },
 
     classifiers=[
+        "Intended Audience :: Developers",
         "Programming Language :: Python :: 3",
         # "License :: None :: To be determined",
         "Operating System :: OS Independent",
