@@ -12,7 +12,7 @@ Installing from PyPI
 MyAutoML can be installed via pip from
 `PyPI <https://pypi.org/project/myautoml>`__.
 
-::
+.. code-block:: bash
 
     pip install myautoml
 
