@@ -101,4 +101,5 @@ The simplest way to install MyAutoML is to from `PyPI <https://pypi.org/project/
     :hidden:
 
     install
+    ml_process
     environment

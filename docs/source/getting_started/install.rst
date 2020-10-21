@@ -16,3 +16,6 @@ MyAutoML can be installed via pip from
 
     pip install myautoml
 
+.. toctree::
+    :maxdepth: 2
+    :hidden:
