@@ -81,11 +81,10 @@ def track_model_data(run_id: str,
         for local_dir, artifact_path in artifact_dirs.items():
             client.log_artifacts(run_id, local_dir, artifact_path)
 
-
-def log_sk_model(sk_model, registered_model_name=None, params=None, tags=None, metrics=None, artifacts=None):
+def log_sk_model(sk_model, registered_model_name=None, params=None, tags=None, metrics=None, artifacts=None,artifact_path='model'):
     _logger.info("Logging Scikit-Learn model to MLflow")
     mlflow.sklearn.log_model(sk_model=sk_model,
-                             artifact_path='model',
+                             artifact_path=artifact_path,
                              conda_env='./environment.yml',
                              registered_model_name=registered_model_name)
     mlflow.log_params(params)
@@ -94,3 +93,6 @@ def log_sk_model(sk_model, registered_model_name=None, params=None, tags=None, m
     for local_path, artifact_path in artifacts.items():
         _logger.debug(f"Logging artifact to MLflow: {local_path} - {artifact_path}")
         mlflow.log_artifact(local_path, artifact_path)
+
+
+
