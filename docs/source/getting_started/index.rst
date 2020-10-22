@@ -59,7 +59,7 @@ Quick questions
     <div id="accordion" class="shadow tutorial-accordion">
 
         <div class="card tutorial-card">
-            <div class="card-header collapsed card-link" data-toggle="collapse" data-target="#collapseOne">
+            <div class="card-header collapsed card-link" data-toggle="collapse" data-target="#collapse_1">
                 <div class="d-flex flex-row tutorial-card-header-1">
                     <div class="d-flex flex-row tutorial-card-header-2">
                         <button class="btn btn-dark btn-sm"></button>
@@ -67,14 +67,14 @@ Quick questions
                     </div>
                     <span class="badge gs-badge-link">
 
-:ref:`Installation...<install>`
+:ref:`install`
 
 .. raw:: html
 
                     </span>
                 </div>
             </div>
-            <div id="collapseOne" class="collapse" data-parent="#accordion">
+            <div id="collapse_1" class="collapse" data-parent="#accordion">
                 <div class="card-body">
 
 The simplest way to install MyAutoML is to from `PyPI <https://pypi.org/project/myautoml>`_ via pip:
@@ -82,6 +82,32 @@ The simplest way to install MyAutoML is to from `PyPI <https://pypi.org/project/
 .. code-block:: bash
 
     pip install myautoml
+
+.. raw:: html
+
+                </div>
+            </div>
+        </div>
+        <div class="card tutorial-card">
+            <div class="card-header collapsed card-link" data-toggle="collapse" data-target="#collapse_2">
+                <div class="d-flex flex-row tutorial-card-header-1">
+                    <div class="d-flex flex-row tutorial-card-header-2">
+                        <button class="btn btn-dark btn-sm"></button>
+                        Glossary
+                    </div>
+                    <span class="badge gs-badge-link">
+
+:ref:`glossary`
+
+.. raw:: html
+
+                    </span>
+                </div>
+            </div>
+            <div id="collapse_2" class="collapse" data-parent="#accordion">
+                <div class="card-body">
+
+In the User Guide we have included a :ref:`glossary`.
 
 .. raw:: html
 
