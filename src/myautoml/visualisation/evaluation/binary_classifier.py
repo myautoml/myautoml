@@ -124,8 +124,8 @@ def save_calibration_curve_zoom(save_dir, data):
     fig, ax = plt.subplots()
     try:
         plot_calibration_curve_zoom(ax, data['test']['y'], data['test']['y_pred_proba'],
-                               label='test',
-                               color=TEST_COLOR)
+                                    label='test',
+                                    color=TEST_COLOR)
 
         fig.savefig(save_path)
     except Exception as e:

@@ -11,7 +11,31 @@ from myautoml.visualisation.evaluation.binary_classifier import (
 _logger = logging.getLogger(__name__)
 
 
-def create_plots(temp_dir, data, plots, plot_path='evaluation'):
+def get_metrics(model, data, calibration=False):
+    _logger.debug(f"Starting computing the metrics")
+    if calibration:
+        prefix = 'calibration_'
+    else:
+        prefix = ''
+
+    metrics = {}
+    for label in data.keys():
+        x = data[label]['x']
+        y_true = data[label]['y']
+        y_pred = data[label]['y_pred'] = model.predict(x)
+        y_pred_proba = data[label]['y_pred_proba'] = model.predict_proba(x)[:, 1]
+
+        metrics[f"{prefix}roc_auc_{label}"] = roc_auc_score(y_true, y_pred_proba)
+        metrics[f"{prefix}average_precision_{label}"] = average_precision_score(y_true, y_pred_proba)
+        metrics[f"{prefix}accuracy_{label}"] = accuracy_score(y_true, y_pred)
+        metrics[f"{prefix}f1_{label}"] = f1_score(y_true, y_pred)
+        metrics[f"{prefix}precision_{label}"] = precision_score(y_true, y_pred)
+        metrics[f"{prefix}recall_{label}"] = recall_score(y_true, y_pred)
+
+    return metrics
+
+
+def get_plots(temp_dir, data, plots, plot_path='evaluation'):
     artifacts = {}
 
     # Standard evaluation plots
@@ -56,20 +80,8 @@ def create_plots(temp_dir, data, plots, plot_path='evaluation'):
 
 def evaluate_binary_classifier(model, data, temp_dir, plots='all'):
     _logger.debug(f"Starting evaluation for binary classifier")
-    metrics = {}
-    for label in data.keys():
-        x = data[label]['x']
-        y_true = data[label]['y']
-        y_pred = data[label]['y_pred'] = model.predict(x)
-        y_pred_proba = data[label]['y_pred_proba'] = model.predict_proba(x)[:, 1]
 
-        #TODO: Metrics in een een aparte functie, ivm dubbele code?
-        metrics[f"roc_auc_{label}"] = roc_auc_score(y_true, y_pred_proba)
-        metrics[f"average_precision_{label}"] = average_precision_score(y_true, y_pred_proba)
-        metrics[f"accuracy_{label}"] = accuracy_score(y_true, y_pred)
-        metrics[f"f1_{label}"] = f1_score(y_true, y_pred)
-        metrics[f"precision_{label}"] = precision_score(y_true, y_pred)
-        metrics[f"recall_{label}"] = recall_score(y_true, y_pred)
+    metrics = get_metrics(model, data)
 
     _logger.debug(f"Starting cross-validation for binary classifier")
     scorers = ['roc_auc', 'accuracy', 'f1', 'average_precision', 'precision', 'recall']
@@ -82,7 +94,7 @@ def evaluate_binary_classifier(model, data, temp_dir, plots='all'):
         if plots == 'all':
             plots = ['roc', 'pr', 'lift_deciles', 'cum_precision', 'distribution']
 
-        artifacts = create_plots(temp_dir, data, plots, plot_path='evaluation')
+        artifacts = get_plots(temp_dir, data, plots, plot_path='evaluation')
     else:
         artifacts = {}
 
@@ -92,25 +104,13 @@ def evaluate_binary_classifier(model, data, temp_dir, plots='all'):
 def evaluate_calibration(model, data, temp_dir, plots='all'):
     _logger.debug(f"Starting evaluation calibration for binary classifier")
 
-    metrics = {}
-    for label in data.keys():
-        x = data[label]['x']
-        y_true = data[label]['y']
-        y_pred = data[label]['y_pred'] = model.predict(x)
-        y_pred_proba = data[label]['y_pred_proba'] = model.predict_proba(x)[:, 1]
-
-        metrics[f"calibrated_roc_auc_{label}"] = roc_auc_score(y_true, y_pred_proba)
-        metrics[f"calibrated_average_precision_{label}"] = average_precision_score(y_true, y_pred_proba)
-        metrics[f"calibrated_accuracy_{label}"] = accuracy_score(y_true, y_pred)
-        metrics[f"calibrated_f1_{label}"] = f1_score(y_true, y_pred)
-        metrics[f"calibrated_precision_{label}"] = precision_score(y_true, y_pred)
-        metrics[f"calibrated_recall_{label}"] = recall_score(y_true, y_pred)
+    metrics = get_metrics(model, data, calibration=True)
 
     if not (plots is None or plots == ""):
         if plots == 'all':
             plots = ['curve', 'curve_zoom', 'roc', 'pr', 'lift_deciles', 'cum_precision', 'distribution']
 
-        artifacts = create_plots(temp_dir, data, plots, plot_path='evaluation_calibration')
+        artifacts = get_plots(temp_dir, data, plots, plot_path='evaluation_calibration')
     else:
         artifacts = {}
 
