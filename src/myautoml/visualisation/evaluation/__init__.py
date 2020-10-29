@@ -156,7 +156,8 @@ def plot_calibration_curve(ax, y_true, y_pred_proba, label=None, color=TEST_COLO
     ax.plot([0, max_val], [0, max_val], linestyle='dotted', color=BASELINE_COLOR, label='Perfectly calibrated')
 
     return ax
-# TODO: X-as legenda toevoegen
+    # TODO: X-as legenda toevoegen
+
 
 def plot_calibration_curve_zoom(ax, y_true, y_pred_proba, label=None, color=TEST_COLOR, legend_loc='best',
                                 strategy='quantile', max_val=None):
