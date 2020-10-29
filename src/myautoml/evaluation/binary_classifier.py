@@ -5,9 +5,53 @@ from sklearn.metrics import roc_auc_score, average_precision_score, accuracy_sco
 from sklearn.model_selection import cross_validate
 
 from myautoml.visualisation.evaluation.binary_classifier import (
-    save_roc_curve, save_cum_precision, save_prediction_distribution, save_lift_deciles, save_precision_recall_curve, save_calibration_curve)
+    save_roc_curve, save_cum_precision, save_prediction_distribution, save_lift_deciles, save_precision_recall_curve,
+    save_calibration_curve, save_calibration_curve_zoom)
 
 _logger = logging.getLogger(__name__)
+
+
+def create_plots(temp_dir, data, plots, plot_path='evaluation'):
+    artifacts = {}
+
+    # Standard evaluation plots
+    if 'roc' in plots:
+        roc_curve_path = save_roc_curve(temp_dir, data)
+        if roc_curve_path:
+            artifacts[roc_curve_path] = plot_path
+
+    if 'pr' in plots:
+        pr_curve_path = save_precision_recall_curve(temp_dir, data)
+        if pr_curve_path:
+            artifacts[pr_curve_path] = plot_path
+
+    if 'lift_deciles' in plots:
+        lift_deciles_path = save_lift_deciles(temp_dir, data)
+        if lift_deciles_path:
+            artifacts[lift_deciles_path] = plot_path
+
+    if 'cum_precision' in plots:
+        cum_precision_path = save_cum_precision(temp_dir, data)
+        if cum_precision_path:
+            artifacts[cum_precision_path] = plot_path
+
+    if 'distribution' in plots:
+        distribution_path = save_prediction_distribution(temp_dir, data)
+        if distribution_path:
+            artifacts[distribution_path] = plot_path
+
+    # Calibration plots
+    if 'curve' in plots:
+        calibration_curve_path = save_calibration_curve(temp_dir, data)
+        if calibration_curve_path:
+            artifacts[calibration_curve_path] = plot_path
+
+    if 'curve' in plots:
+        calibration_curve_zoom_path = save_calibration_curve_zoom(temp_dir, data)
+        if calibration_curve_zoom_path:
+            artifacts[calibration_curve_zoom_path] = plot_path
+
+    return artifacts
 
 
 def evaluate_binary_classifier(model, data, temp_dir, plots='all'):
@@ -19,6 +63,7 @@ def evaluate_binary_classifier(model, data, temp_dir, plots='all'):
         y_pred = data[label]['y_pred'] = model.predict(x)
         y_pred_proba = data[label]['y_pred_proba'] = model.predict_proba(x)[:, 1]
 
+        #TODO: Metrics in een een aparte functie, ivm dubbele code?
         metrics[f"roc_auc_{label}"] = roc_auc_score(y_true, y_pred_proba)
         metrics[f"average_precision_{label}"] = average_precision_score(y_true, y_pred_proba)
         metrics[f"accuracy_{label}"] = accuracy_score(y_true, y_pred)
@@ -33,31 +78,13 @@ def evaluate_binary_classifier(model, data, temp_dir, plots='all'):
     for scorer in scorers:
         metrics[f"{scorer}_cv"] = cv_results[f"test_{scorer}"].mean()
 
-    artifacts = {}
-
     if not (plots is None or plots == ""):
         if plots == 'all':
             plots = ['roc', 'pr', 'lift_deciles', 'cum_precision', 'distribution']
 
-        if 'roc' in plots:
-            roc_curve_path = save_roc_curve(temp_dir, data)
-            artifacts[roc_curve_path] = 'evaluation'
-
-        if 'pr' in plots:
-            pr_curve_path = save_precision_recall_curve(temp_dir, data)
-            artifacts[pr_curve_path] = 'evaluation'
-
-        if 'lift_deciles' in plots:
-            lift_deciles_path = save_lift_deciles(temp_dir, data)
-            artifacts[lift_deciles_path] = 'evaluation'
-
-        if 'cum_precision' in plots:
-            cum_precision_path = save_cum_precision(temp_dir, data)
-            artifacts[cum_precision_path] = 'evaluation'
-
-        if 'distribution' in plots:
-            distribution_path = save_prediction_distribution(temp_dir, data)
-            artifacts[distribution_path] = 'evaluation'
+        artifacts = create_plots(temp_dir, data, plots, plot_path='evaluation')
+    else:
+        artifacts = {}
 
     return metrics, artifacts
 
@@ -79,46 +106,12 @@ def evaluate_calibration(model, data, temp_dir, plots='all'):
         metrics[f"calibrated_precision_{label}"] = precision_score(y_true, y_pred)
         metrics[f"calibrated_recall_{label}"] = recall_score(y_true, y_pred)
 
-    # _logger.debug(f"Starting cross-validation for binary classifier")
-    # scorers = ['roc_auc', 'accuracy', 'f1', 'average_precision', 'precision', 'recall']
-    # cv_results = cross_validate(estimator=model, X=data['test']['x'], y=data['test']['y'],
-    #                             scoring=scorers, cv=5)
-    # for scorer in scorers:
-    #     metrics[f"{scorer}_cv"] = cv_results[f"test_{scorer}"].mean()
-
-    artifacts = {}
-
     if not (plots is None or plots == ""):
         if plots == 'all':
-            plots = ['curve','roc', 'pr', 'lift_deciles', 'cum_precision', 'distribution']
+            plots = ['curve', 'curve_zoom', 'roc', 'pr', 'lift_deciles', 'cum_precision', 'distribution']
 
-        # Calibration plot
-        if 'curve' in plots:
-            calibration_curve_path = save_calibration_curve(temp_dir, data)
-            artifacts[calibration_curve_path] = 'evaluation_calibration'
-
-
-        # Regular plots
-        if 'roc' in plots:
-            roc_curve_path = save_roc_curve(temp_dir, data)
-            artifacts[roc_curve_path] = 'evaluation_calibration'
-
-        if 'pr' in plots:
-            pr_curve_path = save_precision_recall_curve(temp_dir, data)
-            artifacts[pr_curve_path] = 'evaluation_calibration'
-
-        if 'lift_deciles' in plots:
-            lift_deciles_path = save_lift_deciles(temp_dir, data)
-            artifacts[lift_deciles_path] = 'evaluation_calibration'
-
-        if 'cum_precision' in plots:
-            cum_precision_path = save_cum_precision(temp_dir, data)
-            artifacts[cum_precision_path] = 'evaluation_calibration'
-
-        if 'distribution' in plots:
-            distribution_path = save_prediction_distribution(temp_dir, data)
-            if distribution_path:
-                artifacts[distribution_path] = 'evaluation_calibration'
+        artifacts = create_plots(temp_dir, data, plots, plot_path='evaluation_calibration')
+    else:
+        artifacts = {}
 
     return metrics, artifacts
-
