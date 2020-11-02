@@ -139,24 +139,21 @@ def plot_prediction_distribution(ax, y_pred_proba, *args, **kwargs):
 
 def plot_calibration_curve(ax, y_true, y_pred_proba, label=None, color=TEST_COLOR, legend_loc='best',
                            strategy='uniform', max_val=1):
-    # https://scikit-learn.org/stable/auto_examples/calibration/plot_compare_calibration.html
     fraction_of_positives, mean_predicted_value = calibration_curve(y_true, y_pred_proba, n_bins=20,
                                                                     strategy=strategy)
 
-    ax.set_title('Calibration plots  (reliability curve)')
+    ax.set_title('Calibration plots (reliability curve)')
     ax.set_ylabel("Fraction of positives")
+    ax.set_xlabel("Predicted value")
     ax.set_ylim([-0.05 * max_val, 1.05 * max_val])
-    ax.legend(loc="lower right")
 
     ax.plot(mean_predicted_value, fraction_of_positives, label=label,
             marker='+', markeredgecolor='black', color=color)
-    ax.legend(loc=legend_loc)
-
     # Line for the calibration reference
     ax.plot([0, max_val], [0, max_val], linestyle='dotted', color=BASELINE_COLOR, label='Perfectly calibrated')
+    ax.legend(loc=legend_loc)
 
     return ax
-    # TODO: X-as legenda toevoegen
 
 
 def plot_calibration_curve_zoom(ax, y_true, y_pred_proba, label=None, color=TEST_COLOR, legend_loc='best',
@@ -167,16 +164,15 @@ def plot_calibration_curve_zoom(ax, y_true, y_pred_proba, label=None, color=TEST
     if not max_val:
         max_val = max(y_pred_proba)
 
-    ax.set_title('Calibration plots  (reliability curve)')
+    ax.set_title('Calibration plots (reliability curve)')
     ax.set_ylabel("Fraction of positives")
+    ax.set_xlabel("Predicted value")
     ax.set_ylim([-0.05 * max_val, 1.05 * max_val])
-    ax.legend(loc="lower right")
 
     ax.plot(mean_predicted_value, fraction_of_positives, label=label,
             marker='+', markeredgecolor='black', color=color)
-    ax.legend(loc=legend_loc)
-
     # Line for the calibration reference
     ax.plot([0, max_val], [0, max_val], linestyle='dotted', color=BASELINE_COLOR, label='Perfectly calibrated')
+    ax.legend(loc=legend_loc)
 
     return ax
