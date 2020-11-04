@@ -11,12 +11,12 @@ from myautoml.visualisation.evaluation.binary_classifier import (
 _logger = logging.getLogger(__name__)
 
 
-def get_metrics(model, data, calibration=False):
+def get_metrics(model, data, prefix=None):
     _logger.debug(f"Starting computing the metrics")
-    if calibration:
-        prefix = 'calibration_'
-    else:
+    if prefix is None:
         prefix = ''
+    elif len(prefix) > 0 and (not prefix[-1:] == "_"):
+        prefix = prefix + "_"
 
     metrics = {}
     for label in data.keys():
@@ -104,7 +104,7 @@ def evaluate_binary_classifier(model, data, temp_dir, plots='all'):
 def evaluate_calibration(model, data, temp_dir, plots='all'):
     _logger.debug(f"Starting evaluation calibration for binary classifier")
 
-    metrics = get_metrics(model, data, calibration=True)
+    metrics = get_metrics(model, data, prefix='calibration')
 
     if not (plots is None or plots == ""):
         if plots == 'all':
