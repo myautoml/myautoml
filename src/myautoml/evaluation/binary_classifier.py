@@ -90,13 +90,13 @@ def evaluate_binary_classifier(model, data, temp_dir, plots='all'):
     for scorer in scorers:
         metrics[f"{scorer}_cv"] = cv_results[f"test_{scorer}"].mean()
 
-    if not (plots is None or plots == ""):
+    if plots is None or plots == "":
+        artifacts = {}
+    else:
         if plots == 'all':
             plots = ['roc', 'pr', 'lift_deciles', 'cum_precision', 'distribution']
 
         artifacts = get_plots(temp_dir, data, plots, plot_path='evaluation')
-    else:
-        artifacts = {}
 
     return metrics, artifacts
 
@@ -106,12 +106,12 @@ def evaluate_calibration(model, data, temp_dir, plots='all'):
 
     metrics = get_metrics(model, data, prefix='calibration')
 
-    if not (plots is None or plots == ""):
+    if plots is None or plots == "":
+        artifacts = {}
+    else:
         if plots == 'all':
             plots = ['curve', 'curve_zoom', 'roc', 'pr', 'lift_deciles', 'cum_precision', 'distribution']
 
         artifacts = get_plots(temp_dir, data, plots, plot_path='evaluation_calibration')
-    else:
-        artifacts = {}
 
     return metrics, artifacts
