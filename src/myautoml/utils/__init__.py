@@ -1,5 +1,6 @@
 from collections.abc import Mapping
 import logging.config
+import os
 from pathlib import Path
 
 from box import Box
@@ -43,6 +44,8 @@ def start_script(dotenv='.env.general',
                  include_environment=True,
                  include_default_config=True):
     load_dotenv(dotenv)
+    if Path(config_yaml).suffix not in [".yml", ".yaml"]:
+        config_yaml = os.getenv(config_yaml)
     config = load_config(config_yaml, include_environment=include_environment, include_default_config=include_default_config)
     Path(config.logging.handlers.debug_file_handler.filename).parent.mkdir(parents=True, exist_ok=True)
     Path(config.logging.handlers.info_file_handler.filename).parent.mkdir(parents=True, exist_ok=True)
