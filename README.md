@@ -12,21 +12,22 @@ MyAutoML is a project that aims to help data scientists become more efficient, b
 - A programming framework to automate as much as possible of the repetitive
   work a data scientist is likely to encounter.
 
-### Getting started
+### Installation
 
 Install MyAutoML using `pip`:
 ```shell script
 pip install myautoml
 ```
 
-Import the Python package:
-```python
-import myautoml as maml
-print(maml.__version__)
-```
+### Documentation
 
-Further documentation is under development.
-For now, have a look at the example `scripts`.
+Documentation is under development. The latest version can be found at
+https://myautoml.readthedocs.io/en/latest/.
+
+
+### Example scripts
+
+We provide example scripts in the folder `scripts`.
 
 
 ### Cookiecutters

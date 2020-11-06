@@ -3,6 +3,7 @@ import logging
 import numpy as np
 import pandas as pd
 from sklearn.metrics import roc_auc_score, average_precision_score, roc_curve, precision_recall_curve
+from sklearn.calibration import calibration_curve
 
 from myautoml.visualisation.colors import TEST_COLOR, BASELINE_COLOR
 
@@ -133,4 +134,45 @@ def plot_sorted_probabilities(ax, y, y_pred_proba, color=TEST_COLOR, ascending=T
 def plot_prediction_distribution(ax, y_pred_proba, *args, **kwargs):
     ax.hist(y_pred_proba, bins=20, density=True, *args, **kwargs)
     ax.legend(loc='upper right')
+    return ax
+
+
+def plot_calibration_curve(ax, y_true, y_pred_proba, label=None, color=TEST_COLOR, legend_loc='best',
+                           strategy='uniform', max_val=1):
+    fraction_of_positives, mean_predicted_value = calibration_curve(y_true, y_pred_proba, n_bins=20,
+                                                                    strategy=strategy)
+
+    ax.set_title('Calibration plots (reliability curve)')
+    ax.set_ylabel("Fraction of positives")
+    ax.set_xlabel("Predicted value")
+    ax.set_ylim([-0.05 * max_val, 1.05 * max_val])
+
+    ax.plot(mean_predicted_value, fraction_of_positives, label=label,
+            marker='+', markeredgecolor='black', color=color)
+    # Line for the calibration reference
+    ax.plot([0, max_val], [0, max_val], linestyle='dotted', color=BASELINE_COLOR, label='Perfectly calibrated')
+    ax.legend(loc=legend_loc)
+
+    return ax
+
+
+def plot_calibration_curve_zoom(ax, y_true, y_pred_proba, label=None, color=TEST_COLOR, legend_loc='best',
+                                strategy='quantile', max_val=None):
+    fraction_of_positives, mean_predicted_value = calibration_curve(y_true, y_pred_proba, n_bins=20,
+                                                                    strategy=strategy)
+
+    if not max_val:
+        max_val = max(y_pred_proba)
+
+    ax.set_title('Calibration plots (reliability curve)')
+    ax.set_ylabel("Fraction of positives")
+    ax.set_xlabel("Predicted value")
+    ax.set_ylim([-0.05 * max_val, 1.05 * max_val])
+
+    ax.plot(mean_predicted_value, fraction_of_positives, label=label,
+            marker='+', markeredgecolor='black', color=color)
+    # Line for the calibration reference
+    ax.plot([0, max_val], [0, max_val], linestyle='dotted', color=BASELINE_COLOR, label='Perfectly calibrated')
+    ax.legend(loc=legend_loc)
+
     return ax
