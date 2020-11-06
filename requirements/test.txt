@@ -7,7 +7,7 @@
 #
 -r base.txt
 astroid==2.4.2            # via pylint
-attrs==20.2.0             # via pytest
+attrs==20.3.0             # via pytest
 coverage==5.3             # via -r requirements/test.in, pytest-cov
 flake8==3.8.4             # via -r requirements/test.in
 iniconfig==1.1.1          # via pytest
@@ -23,7 +23,7 @@ pylint==2.6.0             # via -r requirements/test.in
 pytest-azurepipelines==0.8.0  # via -r requirements/test.in
 pytest-cov==2.10.1        # via -r requirements/test.in
 pytest==6.1.2             # via -r requirements/test.in, pytest-azurepipelines, pytest-cov
-toml==0.10.1              # via pylint, pytest
+toml==0.10.2              # via pylint, pytest
 wrapt==1.12.1             # via astroid
 
 # The following packages are considered to be unsafe in a requirements file:
