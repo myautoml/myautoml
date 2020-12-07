@@ -9,6 +9,7 @@ import numpy as np
 
 from myautoml.evaluation.binary_classifier import evaluate_binary_classifier
 from myautoml.evaluation.shap import shap_analyse
+from myautoml.calibration import calibrate_model
 from myautoml.utils import load_config
 from myautoml.utils.hyperopt import flatten_params, prep_params
 from myautoml.utils.mlflow import log_sk_model
@@ -54,7 +55,8 @@ def main():
         metrics = {}
         artifacts = {}
 
-        with mlflow.start_run():
+        with mlflow.start_run() as run:
+            run_id = run.info.run_id
             _logger.info("Fitting the preprocessor")
             preprocessor = get_preprocessor()
             preprocessor.fit(x_train, y_train)
@@ -152,7 +154,12 @@ def main():
             log_sk_model(model, registered_model_name=None,
                          params=params, tags=tags, metrics=metrics, artifacts=artifacts)
 
-    return (x_train, y_train, x_test, y_test), model, params, tags, metrics, artifacts
+        if config.calibration.calibrate:
+            model_calibration = calibrate_model(run_id, x_test, y_test)
+        else:
+            model_calibration = ()
+
+    return (x_train, y_train, x_test, y_test), model, params, tags, metrics, artifacts, model_calibration
 
 
 if __name__ == "__main__":
