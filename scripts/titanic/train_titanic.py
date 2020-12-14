@@ -159,7 +159,8 @@ def main():
         else:
             model_calibration = ()
 
-    return (x_train, y_train, x_test, y_test), model, params, tags, metrics, artifacts, model_calibration
+    model_training = (x_train, y_train, x_test, y_test), model, params, tags, metrics, artifacts
+    return model_training, model_calibration
 
 
 if __name__ == "__main__":
