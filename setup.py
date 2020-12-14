@@ -52,7 +52,9 @@ setup(
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     install_requires=[
+        'click',
         'joblib',
+        'mlflow',
         'numpy',
         'pandas',
         'pyyaml',
