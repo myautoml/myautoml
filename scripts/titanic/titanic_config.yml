@@ -14,5 +14,8 @@ evaluation:
     - accuracy
   shap_analysis: True
 
+calibration:
+  calibrate: True
+
 prediction:
   stage: Production

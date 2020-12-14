@@ -1,11 +1,11 @@
 import importlib
 import logging
 from pathlib import Path
+import pickle
 import requests
 import tempfile
 from yaml import safe_load
 
-from box import Box
 import joblib
 import mlflow
 import mlflow.sklearn
@@ -18,8 +18,8 @@ def get_model(run_id: str,
               model_path: str = "model"):
     # Determine how to load the model
     ml_model_url = f"{mlflow.get_tracking_uri()}/get-artifact?path={model_path}%2FMLmodel&run_id={run_id}"
-    ml_model = Box(safe_load(requests.get(ml_model_url).content))
-    loader_module = ml_model.flavors.python_function.loader_module
+    ml_model = safe_load(requests.get(ml_model_url).content)
+    loader_module = ml_model["flavors"]["python_function"]["loader_module"]
     _logger.debug(f"Loader module for the model: {loader_module}")
 
     # Import the 'load_model' function
@@ -30,15 +30,48 @@ def get_model(run_id: str,
     return model
 
 
-def track_model_from_file(local_path: str,
-                          artifact_path: str = 'model',
-                          experiment_name: str = 'default',
-                          run_name: str = None) -> RunInfo:
+def track_sk_model_from_file(local_path: str,
+                             experiment_name: str = 'default',
+                             run_name: str = None,
+                             model_artifact_path: str = 'model',
+                             registered_model_name: str = None,
+                             params: dict = None,
+                             tags: dict = None,
+                             metrics: dict = None,
+                             artifacts: dict = None) -> RunInfo:
+    _logger.debug(f"Loading Scikit-Learn model from file {local_path}")
+    sk_model = pickle.load(open(local_path, 'rb'))
+    return track_sk_model(sk_model,
+                          experiment_name=experiment_name,
+                          run_name=run_name,
+                          model_artifact_path=model_artifact_path,
+                          registered_model_name=registered_model_name,
+                          params=params,
+                          tags=tags,
+                          metrics=metrics,
+                          artifacts=artifacts)
+
+
+def track_sk_model(sk_model,
+                   experiment_name: str = 'default',
+                   run_name: str = None,
+                   model_artifact_path: str = 'model',
+                   registered_model_name: str = None,
+                   params: dict = None,
+                   tags: dict = None,
+                   metrics: dict = None,
+                   artifacts: dict = None) -> RunInfo:
     _logger.debug("Uploading model to MLflow Server")
     mlflow.set_experiment(experiment_name)
     with mlflow.start_run(run_name=run_name) as run:
-        mlflow.log_artifact(local_path=local_path, artifact_path=artifact_path)
         run_info = run.info
+        log_sk_model(sk_model,
+                     model_artifact_path=model_artifact_path,
+                     registered_model_name=registered_model_name,
+                     params=params,
+                     tags=tags,
+                     metrics=metrics,
+                     artifacts=artifacts)
     return run_info
 
 
@@ -82,11 +115,26 @@ def track_model_data(run_id: str,
             client.log_artifacts(run_id, local_dir, artifact_path)
 
 
-def log_sk_model(sk_model, registered_model_name=None, params=None, tags=None, metrics=None, artifacts=None,
-                 artifact_path='model'):
+def log_sk_model(sk_model,
+                 model_artifact_path: str = 'model',
+                 registered_model_name: str = None,
+                 params: dict = None,
+                 metrics: dict = None,
+                 tags: dict = None,
+                 artifacts: dict = None) -> None:
+
+    if params is None:
+        params = {}
+    if metrics is None:
+        metrics = {}
+    if tags is None:
+        tags = {}
+    if artifacts is None:
+        artifacts = {}
+
     _logger.info("Logging Scikit-Learn model to MLflow")
     mlflow.sklearn.log_model(sk_model=sk_model,
-                             artifact_path=artifact_path,
+                             artifact_path=model_artifact_path,
                              conda_env='./environment.yml',
                              registered_model_name=registered_model_name)
     mlflow.log_params(params)

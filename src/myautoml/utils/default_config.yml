@@ -21,7 +21,7 @@ logging:
       class: logging.handlers.RotatingFileHandler
       level: DEBUG
       formatter: simple
-      filename: ${DIR_LOGS}/debug.log
+      filename: logs/debug.log
       maxBytes: 20485760 # 20MB
       backupCount: 10
       encoding: utf8
@@ -30,7 +30,7 @@ logging:
       class: logging.handlers.RotatingFileHandler
       level: INFO
       formatter: simple
-      filename: ${DIR_LOGS}/info.log
+      filename: logs/info.log
       maxBytes: 10485760 # 10MB
       backupCount: 10
       encoding: utf8
@@ -39,7 +39,7 @@ logging:
       class: logging.handlers.RotatingFileHandler
       level: WARNING
       formatter: simple
-      filename: ${DIR_LOGS}/warning.log
+      filename: logs/warning.log
       maxBytes: 10485760 # 10MB
       backupCount: 10
       encoding: utf8
@@ -48,7 +48,7 @@ logging:
       class: logging.handlers.RotatingFileHandler
       level: ERROR
       formatter: simple
-      filename: ${DIR_LOGS}/error.log
+      filename: logs/error.log
       maxBytes: 10485760 # 10MB
       backupCount: 10
       encoding: utf8
@@ -57,7 +57,7 @@ logging:
       class: logging.handlers.RotatingFileHandler
       level: CRITICAL
       formatter: simple
-      filename: ${DIR_LOGS}/critical.log
+      filename: logs/critical.log
       maxBytes: 10485760 # 10MB
       backupCount: 10
       encoding: utf8
