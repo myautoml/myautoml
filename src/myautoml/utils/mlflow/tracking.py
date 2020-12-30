@@ -7,6 +7,7 @@ import tempfile
 from yaml import safe_load
 
 import joblib
+import matplotlib.pyplot as plt
 import mlflow
 import mlflow.sklearn
 from mlflow.entities import RunInfo
@@ -143,3 +144,9 @@ def log_sk_model(sk_model,
     for local_path, artifact_path in artifacts.items():
         _logger.debug(f"Logging artifact to MLflow: {local_path} - {artifact_path}")
         mlflow.log_artifact(local_path, artifact_path)
+
+
+def log_plt(artifact_path):
+    with tempfile.NamedTemporaryFile() as file:
+        plt.savefig(file.name)
+        mlflow.log_artifact(file.name, artifact_path)
