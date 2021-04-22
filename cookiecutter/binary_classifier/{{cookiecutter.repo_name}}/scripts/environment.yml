@@ -8,6 +8,7 @@ dependencies:
   - pyyaml
   - scikit-learn
   - matplotlib
+  - myautoml
   - seaborn
   - conda-forge::hyperopt
   - conda-forge::mlflow
