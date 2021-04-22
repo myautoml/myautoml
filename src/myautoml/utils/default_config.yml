@@ -7,14 +7,30 @@ logging:
   # Formatters that are assigned to outputs ("handlers") below
   formatters:
     simple:
-      format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+      format: "%(asctime)s - %(name)s (%(filename)s:%(lineno)d) - %(levelname)s - %(message)s"
+    colored:
+      '()': myautoml.utils.logger.LevelFormatter
+      format:
+        # 0: "\x1b[0m%(asctime)s - %(name)s (%(filename)s:%(lineno)d) - %(levelname)s - %(message)s\x1b[0m"
+        # 10: "\x1b[0m%(asctime)s - %(name)s (%(filename)s:%(lineno)d) - %(levelname)s - %(message)s\x1b[0m"
+        # 20: "\x1b[0m%(asctime)s - %(name)s (%(filename)s:%(lineno)d) - %(levelname)s - %(message)s\x1b[0m"
+        # 30: "\x1b[33m%(asctime)s - %(name)s (%(filename)s:%(lineno)d) - %(levelname)s - %(message)s\x1b[0m"
+        # 40: "\x1b[31m%(asctime)s - %(name)s (%(filename)s:%(lineno)d) - %(levelname)s - %(message)s\x1b[0m"
+        # 50: "\x1b[31;1m%(asctime)s - %(name)s (%(filename)s:%(lineno)d) - %(levelname)s - %(message)s\x1b[0m"
+
+        0: "\x1b[38m%(asctime)s - %(name)s (%(filename)s:%(lineno)d) - %(levelname)s - %(message)s\x1b[0m"
+        10: "\x1b[38;5;243m%(asctime)s - %(name)s (%(filename)s:%(lineno)d) - %(levelname)s - %(message)s\x1b[0m"
+        20: "\x1b[38;5;110m%(asctime)s - %(name)s (%(filename)s:%(lineno)d) - %(levelname)s - %(message)s\x1b[0m"
+        30: "\x1b[38;5;220m%(asctime)s - %(name)s (%(filename)s:%(lineno)d) - %(levelname)s - %(message)s\x1b[0m"
+        40: "\x1b[38;5;196m%(asctime)s - %(name)s (%(filename)s:%(lineno)d) - %(levelname)s - %(message)s\x1b[0m"
+        50: "\x1b[38;5;196;7m%(asctime)s - %(name)s (%(filename)s:%(lineno)d) - %(levelname)s - %(message)s\x1b[0m"
 
   # Outputs, one or more of which can be assigned to loggers
   handlers:
     console:
       class: logging.StreamHandler
       level: DEBUG
-      formatter: simple
+      formatter: colored
       stream: ext://sys.stdout
 
     debug_file_handler:
@@ -22,7 +38,7 @@ logging:
       level: DEBUG
       formatter: simple
       filename: logs/debug.log
-      maxBytes: 20485760 # 20MB
+      maxBytes: 20971520 # 20MB
       backupCount: 10
       encoding: utf8
 
@@ -67,18 +83,18 @@ logging:
   loggers:
     azure:
       level: WARNING
-      handlers: [warning_file_handler]
+      handlers: [ warning_file_handler ]
     git:
       level: INFO
-      handlers: [info_file_handler]
+      handlers: [ info_file_handler ]
     matplotlib:
       level: INFO
-      handlers: [info_file_handler]
+      handlers: [ info_file_handler ]
     urllib3:
       level: INFO
-      handlers: [info_file_handler]
+      handlers: [ info_file_handler ]
 
   # The root logger
   root:
     level: DEBUG
-    handlers: [console, debug_file_handler, info_file_handler]
+    handlers: [ console, debug_file_handler, info_file_handler ]
