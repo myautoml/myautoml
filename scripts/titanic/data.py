@@ -24,8 +24,3 @@ def load_prediction_data():
                                                         test_size=0.2,
                                                         random_state=123)
     return x_test, y_test
-
-
-def split_data(x, y):
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
-    return x_train, x_test, y_train, y_test

@@ -2,7 +2,8 @@ name: myautoml
 channels:
 #    - use default channels
 dependencies:
-  - python
+  - python>=3.8,<3.9
   - pip
   - pip:
-      - -r file:requirements/base.txt
+      - -r ./requirements/dev.txt
+      - -e .
