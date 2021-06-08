@@ -1,14 +1,8 @@
-.. _tutorial:
+.. _train_tutorial:
 
 ====================================================
 Tutorial: train a model
 ====================================================
-
-:Author: Ernst Bolle
-:Last update: 2021-05-27
-
-Introduction
-============
 
 In this tutorial we will show you step-by-step how to train a binary classification model with the help of MyAutoML.
 
@@ -129,7 +123,7 @@ The `official documentation`_ of MyAutoML illustrates this nicely.
 
 .. _official documentation: https://myautoml.readthedocs.io/en/latest/getting_started/ml_process.html
 
-.. figure:: ../images/training-process-aangepast.png
+.. figure:: ../images/training_process_highlighted.png
    :align: center
 
 The pre-processor can be set in ``scripts/model.py``, where an example pipeline is already shown in the ``get_preprocessor``
