@@ -1,0 +1,4 @@
+y,age,default,balance,housing,loan,poutcome
+False,58,no,2143,yes,no,success
+False,44,no,29,yes,no,unknown
+False,33,no,2,yes,yes,failure   
