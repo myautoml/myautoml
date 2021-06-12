@@ -3,6 +3,35 @@ from pathlib import Path
 import getpass
 
 
+class LevelFormatter:
+    """Logging Formatter to add colors and count warning / errors"""
+
+    def __init__(self, fmt=None, datefmt=None, style='%', validate=True):
+        if fmt is None:
+            grey = "\x1b[38;21m"
+            green = "\x1b[32;21m"
+            yellow = "\x1b[33;21m"
+            red = "\x1b[31;21m"
+            bold_red = "\x1b[31;1m"
+            reset = "\x1b[0m"
+            fmt_str = "%(asctime)s - %(name)s (%(filename)s:%(lineno)d) - %(levelname)s - %(message)s"
+            fmt = {
+                logging.DEBUG: grey + fmt_str + reset,
+                logging.INFO: green + fmt_str + reset,
+                logging.WARNING: yellow + fmt_str + reset,
+                logging.ERROR: red + fmt_str + reset,
+                logging.CRITICAL: bold_red + fmt_str + reset
+            }
+
+        self.formatters = {
+            level: logging.Formatter(fmt=f, datefmt=datefmt, style=style, validate=validate)
+            for level, f in fmt.items()
+        }
+
+    def format(self, record):
+        return self.formatters.get(record.levelno).format(record)
+
+
 def config_logging(logger=None,
                    log_level=None,
                    log_format=f'%(asctime)s {getpass.getuser()}:%(name)s:%(levelname)s: %(message)s',
