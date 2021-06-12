@@ -5,7 +5,7 @@
 #
 #    pip-compile-multi
 #
--e file:///mnt/c/Repositories/myautoml/myautoml  # via -r requirements/docs.in
+-e .  # via -r requirements/docs.in
 alabaster==0.7.12         # via sphinx
 alembic==1.4.1            # via mlflow
 babel==2.9.1              # via sphinx

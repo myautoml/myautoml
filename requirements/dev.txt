@@ -7,7 +7,6 @@
 #
 -r docs.txt
 -r test.txt
--e file:///mnt/c/Repositories/myautoml/myautoml  # via -r requirements/docs.in
 bleach==3.3.0             # via readme-renderer
 cffi==1.14.5              # via cryptography
 colorama==0.4.4           # via twine
