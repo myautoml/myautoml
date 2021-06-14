@@ -32,9 +32,10 @@ install Cookiecutter with pip.
 
    pip install cookiecutter
 
-If you already have Cookiecutter installed make sure it is up to date since we will use the --directory option.
-More information on the installation of Cookiecutter can be found `here <https://cookiecutter.readthedocs.io/en/1.7.2/installation.html>`_.
-Once installed, move to the folder where you want to store MyAutoML and execute the following command.
+If you already have Cookiecutter installed make sure it is up to date since we will use the --directory option. Note that we intend to move the cookiecutter to a 
+separate repository, but for now it's still in a directory within this repository. More information on the installation of Cookiecutter can 
+be found `here <https://cookiecutter.readthedocs.io/en/1.7.2/installation.html>`_. Once installed, move to the folder where you want to store 
+MyAutoML and execute the following command.
 
 .. code:: bash
 
@@ -251,7 +252,7 @@ environment, and execute the following command.
 
 .. code:: bash
 
-    mlfow ui
+    mlflow ui
 
 Once you see the response in the terminal, head over to http://localhost:5000 and have a look. Note that we assume you
 are running this tutorial locally.
