@@ -195,11 +195,9 @@ Make sure that the keys from the ``search_space`` dictionary exactly match the n
 methods help to create a hyperparameter space which can be efficiently searched with ``hyperopt`` when training the model.
 
 config.yml
-^^^^^^^^^^
 
-The last part of the configuration is to setup the config.yml file. For now we increase the max_evals to 10 and set the
-shap_analysis to False. The rest of the settings will be discussed shortly, as they make more sense once we see the
-first results.
+The last part of the configuration is to setup the config.yml file. For now we increase the max_evals to 10 and set the shap_analysis to False. 
+The rest of the settings will be discussed shortly, as they make more sense once we see the first results.
 
 .. code:: yaml
 
@@ -225,8 +223,9 @@ first results.
 Run & evaluate
 ==============
 
-You are now ready to run the train script. Make sure you are in the ``/scripts`` folder and that the MyAutoML environment
-is activated.
+You are now almost ready to run the train script. Make sure the ``.general.template`` part from the ``.env.general.template`` file is removed. This file
+contains a few variables with regard to the MLflow input / output which you can leave as is for now. Change directory to the ``/scripts`` folder with
+the MyAutoML environment activated and enter the following code to start the train script:
 
 .. code:: bash
 
