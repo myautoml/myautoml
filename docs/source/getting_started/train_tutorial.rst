@@ -195,6 +195,7 @@ Make sure that the keys from the ``search_space`` dictionary exactly match the n
 methods help to create a hyperparameter space which can be efficiently searched with ``hyperopt`` when training the model.
 
 config.yml
+^^^^^^^^^^
 
 The last part of the configuration is to setup the config.yml file. For now we increase the max_evals to 10 and set the shap_analysis to False. 
 The rest of the settings will be discussed shortly, as they make more sense once we see the first results.
