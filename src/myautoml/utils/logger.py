@@ -2,6 +2,10 @@ import logging
 from pathlib import Path
 import getpass
 
+from myautoml import __version__ as myautoml_version
+
+_logger = logging.getLogger(__name__)
+
 
 class LevelFormatter:
     """Logging Formatter to add colors and count warning / errors"""
@@ -80,6 +84,20 @@ def config_logging(logger=None,
         fh.setFormatter(formatter)
         logger.addHandler(fh)
         logger.info("Added file handler: {}".format(log_path))
+
+
+def logging_examples():
+    _logger.info("Start logging examples")
+    _logger.debug(f"MyAutoML version: {myautoml_version}")
+    _logger.warning("There was a problem with MyAutoML version 0.5.0, so please avoid it!")
+    try:
+        1 / 0
+    except ZeroDivisionError:
+        _logger.error("Cannot divide by 0")
+        _logger.critical("This is a critical message.")
+        _logger.exception("Exception:")
+
+    _logger.info("Finished logging examples")
 
 
 def log_dict(logger, d, name, level=logging.DEBUG):
