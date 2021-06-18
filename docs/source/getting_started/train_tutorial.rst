@@ -224,8 +224,12 @@ The rest of the settings will be discussed shortly, as they make more sense once
 Run & evaluate
 ==============
 
-You are now almost ready to run the train script. Make sure the ``.general.template`` part from the ``.env.general.template`` file is removed. This file
-contains a few variables with regard to the MLflow input / output which you can leave as is for now. Change directory to the ``/scripts`` folder with
+You are now almost ready to run the train script. Make sure to make a copy of ``.env.general.template`` with the name ``.env.general``. 
+The template shows the settings that are (may be) expected by the program, without containing any secrets such as passwords, so that it 
+can be committed to a git repository. You can update your personal and private settings in the .env.general file. **Never commit your
+.env.general (with passwords, etc.) to a git repository!**
+
+Change directory to the ``/scripts`` folder with
 the MyAutoML environment activated and enter the following code to start the train script:
 
 .. code:: bash
