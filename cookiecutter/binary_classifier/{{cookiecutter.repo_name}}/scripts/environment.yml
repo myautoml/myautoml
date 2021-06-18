@@ -2,7 +2,7 @@ name: {{cookiecutter.env_name}}
 channels:
   - defaults
 dependencies:
-  - python==3.8.5
+  - python>=3.8
   - numpy
   - pandas
   - pyyaml
