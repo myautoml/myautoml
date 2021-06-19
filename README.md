@@ -27,7 +27,7 @@ https://myautoml.readthedocs.io/en/latest/.
 #### Tutorial
 
 Wondering how to get started with training a model with MyAutoML? Have a look at the
-[tutorial](https://myautoml.readthedocs.io/en/latest/getting_started/train_tutorial.html).
+[tutorial](https://myautoml.readthedocs.io/en/latest/getting_started/train_tutorial.html)!
 
 
 ### Example scripts
