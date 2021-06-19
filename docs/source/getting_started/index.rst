@@ -129,3 +129,4 @@ In the User Guide we have included a :ref:`glossary`.
     install
     ml_process
     environment
+    train_tutorial
