@@ -89,6 +89,7 @@ def config_logging(logger=None,
 def logging_examples():
     _logger.info("Start logging examples")
     _logger.debug(f"MyAutoML version: {myautoml_version}")
+    _logger.info("These are logging examples")
     _logger.warning("There was a problem with MyAutoML version 0.5.0, so please avoid it!")
     try:
         1 / 0
