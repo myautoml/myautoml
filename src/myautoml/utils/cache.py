@@ -67,6 +67,7 @@ def _save_cache_index(cache_index):
 
 
 def delete_cache():
+    _logger.warning(f"Deleting cache: {cache_paths.cache_dir}")
     shutil.rmtree(cache_paths.cache_dir)
 
 
