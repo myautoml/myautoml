@@ -42,8 +42,9 @@ class CachePaths:
     def set_cache_dir(self):
         cache_dir = os.getenv("MYAUTOML_CACHE_DIR", default=None)
         if cache_dir is None:
-            # TODO: Should this be relative to the current working dir instead?
-            cache_dir = Path.home() / '.cache' / 'myautoml'
+            # TODO: Should this be relative to the current working dir or home dir?
+            # cache_dir = Path.home() / '.cache' / 'myautoml'
+            cache_dir = Path('cache') / 'myautoml'
             _logger.warning(f"No cache dir specified, using default: {cache_dir}")
         else:
             cache_dir = Path(cache_dir)
