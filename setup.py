@@ -67,7 +67,7 @@ setup(
     ],
     include_package_data=True,
 
-    python_requires='>=3.6',
+    python_requires='>=3.8',
     extras_require=extras,
 
     entry_points={
