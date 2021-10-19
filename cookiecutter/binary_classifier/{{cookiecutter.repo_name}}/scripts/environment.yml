@@ -7,8 +7,7 @@ dependencies:
   - pandas
   - pyyaml
   - scikit-learn
-  - matplotlib
-  - myautoml
+  - matplotlib 
   - seaborn
   - conda-forge::hyperopt
   - conda-forge::mlflow
@@ -18,5 +17,6 @@ dependencies:
 
   - pip
   - pip:
-      - envyaml
       - cloudpickle
+      - envyaml
+      - myautoml

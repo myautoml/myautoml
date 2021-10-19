@@ -24,6 +24,11 @@ pip install myautoml
 Documentation is under development. The latest version can be found at
 https://myautoml.readthedocs.io/en/latest/.
 
+#### Tutorial
+
+Wondering how to get started with training a model with MyAutoML? Have a look at the
+[tutorial](https://myautoml.readthedocs.io/en/latest/getting_started/train_tutorial.html)!
+
 
 ### Example scripts
 

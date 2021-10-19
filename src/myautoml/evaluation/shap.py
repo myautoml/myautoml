@@ -9,7 +9,7 @@ from myautoml.visualisation.evaluation.shap import (
 _logger = logging.getLogger(__name__)
 
 
-def shap_analyse(model, x, temp_dir, return_shap_details=False):
+def shap_analyse(model, x, temp_dir, return_shap_details=False, ignore_plot_errors=False):
     temp_dir.mkdir(parents=True, exist_ok=True)
     _logger.debug("Performing Shap analysis")
     shap_feature_names = get_ct_feature_names(model.steps[0][1])
@@ -28,7 +28,8 @@ def shap_analyse(model, x, temp_dir, return_shap_details=False):
     shap_summary_path = save_shap_summary(temp_dir, shap_values, shap_data, shap_feature_names)
     shap_summary_bar_path = save_shap_summary_bar(temp_dir, shap_values, shap_data, shap_feature_names)
     shap_dependence_paths = save_shap_dependence_plots(temp_dir, shap_values, shap_data, shap_feature_names, x,
-                                                       model.steps[0][1])
+                                                       model.steps[0][1],
+                                                       ignore_plot_errors=ignore_plot_errors)
 
     paths = [shap_summary_path, shap_summary_bar_path, *shap_dependence_paths]
     artifacts = {path: 'shap' for path in paths}

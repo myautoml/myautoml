@@ -20,34 +20,3 @@ def load_pickle(path):
         obj = load(cache_file)
     _logger.debug(f"Object loaded from pickle file: {path}")
     return obj
-
-
-def cached(cache_path, func):
-    """
-    This wrapper adds an additional required positional argument cache_path to a function.
-
-    If the cache_path points to an existing file, the contents are unpickled and returned.
-
-    If the cache_path does not point to a file, then the original function is executed with the original parameters.
-    The result is first saved as a pickle file in the cache_path, and then returned.
-
-    Example 1:
-        If you normally would call
-            data = my_function(*args, **kwargs)
-        Then you would now call
-            data = cached('/path/to/my/cache', my_function)(*args, **kwargs)
-
-    :param cache_path   The path to the cache file
-    :param func:        The original function to be executed
-    :return:            A modified function, which loads the result from the cache file if it exists,
-                        and which executes the original function if it doesn't.
-    """
-
-    def cached_func(*args, **kwargs):
-        if Path(cache_path).exists():
-            return load_pickle(cache_path)
-        result = func(*args, **kwargs)
-        save_pickle(result, cache_path)
-        return result
-
-    return cached_func
