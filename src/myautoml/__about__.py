@@ -6,7 +6,7 @@ __title__ = "myautoml"
 __summary__ = "myautoml is a package which provides a framework to automate machine learning"
 __uri__ = "https://github.com/myautoml/myautoml"
 
-__version__ = "0.6.0"
+__version__ = "0.6.1"
 
 __author__ = "Erik Jan de Vries"
 
