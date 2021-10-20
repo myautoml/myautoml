@@ -72,7 +72,7 @@ def delete_cache():
     shutil.rmtree(cache_paths.cache_dir)
 
 
-def cached(func, reset=False):
+def cached(func, cache_key=None, reset=False):
     """
     This wrapper loads the result of the function (given its args and kwargs) from a cache file if it exists.
     If not, it executes the function as usual and stores the result in a cache file for future reference.
@@ -85,6 +85,8 @@ def cached(func, reset=False):
             data = cached(my_function)(*args, **kwargs)
 
     :param func:        The original function to be executed
+    :param cache_key    The key to be used in the index. If None, a key will be created based on the function name, and
+                        its args and kwargs
     :param reset:       Boolean indicator to specify whether the existing cache should be overwritten
     :return:            A modified function, which loads the result from the cache file if it exists,
                         and which executes the original function if it doesn't.
@@ -92,13 +94,16 @@ def cached(func, reset=False):
     cache_index = get_cache_index()
 
     def cached_func(*args, **kwargs):
-        cache_key = (('func', func.__name__),
-                     ('args', args),
-                     ('kwargs', *[(k, v) for k, v in kwargs.items()]))
-        _logger.debug(f"Cache key: {cache_key}")
-        if cache_key not in cache_index.keys():
-            cache_index[cache_key] = str(cache_paths.data_dir / uuid.uuid4().hex)
-        cache_path = Path(cache_index[cache_key])
+        if cache_key is None:
+            ck = (('func', func.__name__),
+                  ('args', args),
+                  ('kwargs', *[(k, v) for k, v in kwargs.items()]))
+        else:
+            ck = cache_key
+        _logger.debug(f"Cache key: {ck}")
+        if ck not in cache_index.keys():
+            cache_index[ck] = str(cache_paths.data_dir / uuid.uuid4().hex)
+        cache_path = Path(cache_index[ck])
 
         if reset:
             _logger.info("Deleting any pre-existing cache")
