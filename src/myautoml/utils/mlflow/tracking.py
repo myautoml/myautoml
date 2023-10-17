@@ -2,7 +2,6 @@ import importlib
 import logging
 from pathlib import Path
 import pickle
-import requests
 import tempfile
 from yaml import safe_load
 
@@ -18,8 +17,9 @@ _logger = logging.getLogger(__name__)
 def get_model(run_id: str,
               model_path: str = "model"):
     # Determine how to load the model
-    ml_model_url = f"{mlflow.get_tracking_uri()}/get-artifact?path={model_path}%2FMLmodel&run_id={run_id}"
-    ml_model = safe_load(requests.get(ml_model_url).content)
+    artifact_uri = mlflow.get_run(run_id).info.artifact_uri
+    ml_model_url = Path(artifact_uri, model_path, "MLmodel").as_posix()
+    ml_model = safe_load(mlflow.artifacts.load_text(ml_model_url))
     loader_module = ml_model["flavors"]["python_function"]["loader_module"]
     _logger.debug(f"Loader module for the model: {loader_module}")
 
