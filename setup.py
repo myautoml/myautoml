@@ -58,7 +58,6 @@ setup(
         'numpy',
         'pandas',
         'pyyaml',
-        'requests',
         'scikit-learn',
 
         'python-box',
